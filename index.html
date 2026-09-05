@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0b0614">
+<meta name="description" content="A love story, just for Priya.">
+<title>Happy Birthday, Priya 🤍</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%8D%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0614'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%A4%8D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg-deep:#0a0512;
+  --bg-mid:#170c28;
+  --bg-purple:#2a1746;
+  --rose:#ff6fa5;
+  --rose-soft:#ffc3dd;
+  --gold:#f4c869;
+  --gold-soft:#ffe6ab;
+  --lavender:#b58aff;
+  --white:#fdf6ff;
+  --ink:#e9def5;
+  --glass:rgba(255,255,255,0.055);
+  --glass-strong:rgba(255,255,255,0.09);
+  --glass-border:rgba(255,255,255,0.16);
+  --shadow-glow:0 0 60px rgba(255,111,165,0.25);
+  --font-display:'Great Vibes', cursive;
+  --font-heading:'Playfair Display', Georgia, serif;
+  --font-body:'Poppins', sans-serif;
+  --ease-soft:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg-deep);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+img{max-width:100%;display:block;}
+button{font-family:inherit;border:none;background:none;cursor:pointer;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--rose);color:var(--bg-deep);}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+}
+
+/* Focus visibility */
+button:focus-visible,a:focus-visible,.tap:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+  border-radius:8px;
+}
+
+/* ============================================================
+   AMBIENT BACKGROUND — animated gradient + stars + particles
+   ============================================================ */
+.ambient-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 15%, rgba(181,138,255,0.25), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 25%, rgba(255,111,165,0.22), transparent 60%),
+    radial-gradient(ellipse 90% 60% at 50% 90%, rgba(244,200,105,0.10), transparent 60%),
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, var(--bg-purple) 100%);
+  background-size:200% 200%, 200% 200%, 200% 200%, 100% 100%;
+  animation:driftGradient 22s ease-in-out infinite alternate;
+}
+@keyframes driftGradient{
+  0%{background-position:0% 0%, 100% 0%, 50% 100%, 0 0;}
+  100%{background-position:30% 30%, 70% 40%, 60% 80%, 0 0;}
+}
+#particle-canvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+
+/* cursor glow (desktop) */
+.cursor-glow{
+  position:fixed;
+  width:280px;height:280px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:2;
+  background:radial-gradient(circle, rgba(255,111,165,0.13), rgba(181,138,255,0.06) 40%, transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:opacity .3s ease;
+  mix-blend-mode:screen;
+  will-change:transform;
+}
+@media (hover:none){.cursor-glow{display:none;}}
+
+/* ============================================================
+   SCROLL PROGRESS LOCKET — signature element
+   ============================================================ */
+.locket{
+  position:fixed;
+  top:calc(16px + env(safe-area-inset-top));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:40;
+  width:44px;height:44px;
+  pointer-events:none;
+}
+.locket svg{width:100%;height:100%;}
+.locket-heart-bg{fill:none;stroke:rgba(255,255,255,0.18);stroke-width:2.5;}
+.locket-heart-fill{
+  fill:none;
+  stroke:url(#lockGrad);
+  stroke-width:2.5;
+  stroke-linecap:round;
+  stroke-dasharray:120;
+  stroke-dashoffset:120;
+  transition:stroke-dashoffset .6s ease;
+  filter:drop-shadow(0 0 6px rgba(255,111,165,0.8));
+}
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+#preloader{
+  position:fixed;inset:0;z-index:999;
+  background:var(--bg-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;
+  transition:opacity .8s var(--ease-soft), visibility .8s;
+}
+#preloader.hidden{opacity:0;visibility:hidden;}
+.preloader-heart{font-size:2.4rem;animation:pulseHeart 1.1s ease-in-out infinite;}
+@keyframes pulseHeart{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+.preloader-text{font-family:var(--font-display);font-size:1.4rem;color:var(--rose-soft);letter-spacing:0.5px;}
+
+/* ============================================================
+   LAYOUT / SECTION BASICS
+   ============================================================ */
+.section{
+  position:relative;
+  z-index:5;
+  min-height:100vh;
+  min-height:100svh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:90px 22px;
+  text-align:center;
+  overflow:hidden;
+}
+.section-inner{max-width:640px;width:100%;position:relative;z-index:3;}
+.eyebrow{
+  font-size:.72rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  opacity:.85;
+  margin-bottom:14px;
+  font-weight:600;
+}
+.display{
+  font-family:var(--font-display);
+  color:var(--white);
+  line-height:1.15;
+  text-shadow:0 0 40px rgba(255,111,165,0.35);
+}
+.h1{font-size:clamp(2.6rem,11vw,4.6rem);}
+.h2{font-size:clamp(2.2rem,9vw,3.6rem);}
+.body-text{font-size:1.02rem;line-height:1.75;color:var(--ink);font-weight:300;}
+.section-title{
+  font-family:var(--font-heading);
+  font-weight:600;
+  font-style:italic;
+  font-size:clamp(1.9rem,7vw,2.7rem);
+  color:var(--white);
+  margin-bottom:10px;
+  letter-spacing:.2px;
+  text-shadow:0 0 30px rgba(181,138,255,0.3);
+}
+.section-sub{
+  font-size:.95rem;
+  color:var(--rose-soft);
+  font-weight:300;
+  margin-bottom:44px;
+  letter-spacing:.3px;
+}
+
+/* glass surfaces */
+.glass{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-radius:24px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* buttons */
+.btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:16px 38px;
+  border-radius:100px;
+  font-size:.95rem;
+  font-weight:600;
+  letter-spacing:.4px;
+  color:var(--bg-deep);
+  background:linear-gradient(135deg, var(--gold-soft), var(--gold) 45%, var(--rose) 100%);
+  box-shadow:0 10px 30px rgba(255,111,165,0.35), 0 0 0 1px rgba(255,255,255,0.25) inset;
+  transition:transform .35s var(--ease-spring), box-shadow .35s;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(255,111,165,0.5);}
+.btn:active{transform:translateY(0) scale(0.97);}
+.btn-ghost{
+  background:rgba(255,255,255,0.08);
+  color:var(--white);
+  border:1.5px solid rgba(255,255,255,0.35);
+  box-shadow:0 4px 16px rgba(0,0,0,0.25);
+}
+.btn-ghost:hover{border-color:var(--rose-soft);}
+
+/* floating hearts / sparkle deco */
+.floaters{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
+.floater{
+  position:absolute;
+  bottom:-10%;
+  opacity:0;
+  animation:floatUp linear infinite;
+  filter:drop-shadow(0 0 6px rgba(255,111,165,0.5));
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0;}
+  10%{opacity:.9;}
+  90%{opacity:.6;}
+  100%{transform:translateY(-115vh) translateX(var(--drift,20px)) rotate(360deg);opacity:0;}
+}
+
+/* paginated story — only the active page is shown; every other page requires
+   its own Next action to advance into view (no free scrolling between chapters) */
+section.page{display:none;opacity:1;}
+section.page.active{display:flex;}
+
+/* reveal-on-scroll (JS toggles .in-view; AOS handles most, this is fallback) */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease-soft), transform .9s var(--ease-soft);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero{padding-top:70px;}
+.hero-silhouette{
+  width:min(78vw,300px);
+  aspect-ratio:1/1;
+  margin:0 auto 8px;
+  position:relative;
+}
+.hero-silhouette svg{width:100%;height:100%;filter:drop-shadow(0 10px 40px rgba(255,111,165,0.35));}
+.hero-name{
+  font-family:var(--font-display);
+  font-size:clamp(2.8rem,14vw,5.2rem);
+  background:linear-gradient(135deg, var(--gold-soft), var(--rose) 55%, var(--lavender));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-top:-6px;
+  animation:glowText 4s ease-in-out infinite;
+}
+@keyframes glowText{0%,100%{filter:drop-shadow(0 0 18px rgba(255,111,165,0.35));}50%{filter:drop-shadow(0 0 30px rgba(244,200,105,0.55));}}
+.hero-subtitle{
+  margin-top:18px;
+  min-height:1.6em;
+  font-size:clamp(.95rem,3.4vw,1.15rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--rose-soft);
+}
+.typed-cursor{color:var(--gold);}
+.hero-cta{margin-top:46px;}
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--ink);opacity:.55;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.scroll-hint .chev{width:14px;height:14px;border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(45deg);animation:chevBounce 1.6s ease-in-out infinite;}
+@keyframes chevBounce{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.4;}50%{transform:rotate(45deg) translate(4px,4px);opacity:1;}}
+
+/* ============================================================
+   QUESTION SECTION
+   ============================================================ */
+.question-card{padding:52px 30px;}
+.yn-row{display:flex;gap:22px;justify-content:center;margin-top:38px;position:relative;min-height:190px;align-items:flex-start;padding-top:6px;}
+.btn-no{
+  position:relative;
+  z-index:5;
+  opacity:1;
+  transition:opacity .35s ease, transform .35s var(--ease-spring), left .3s var(--ease-soft), top .3s var(--ease-soft);
+}
+.btn-no.evading{position:absolute;top:0;}
+.btn-no.gone{opacity:0;transform:scale(.4);pointer-events:none;}
+.yes-burst{position:fixed;inset:0;pointer-events:none;z-index:60;}
+
+/* ============================================================
+   BALLOONS
+   ============================================================ */
+.balloon-field{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+  max-width:360px;
+  margin:0 auto;
+  position:relative;
+  z-index:3;
+}
+.balloon{
+  position:relative;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  animation:balloonBob 3.4s ease-in-out infinite;
+  transition:transform .25s var(--ease-spring);
+}
+.balloon:nth-child(2){animation-delay:.4s;}
+.balloon:nth-child(3){animation-delay:.8s;}
+.balloon:nth-child(4){animation-delay:1.2s;}
+.balloon:active{transform:scale(0.94);}
+@keyframes balloonBob{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-14px) rotate(2deg);}}
+.balloon svg{width:100%;height:auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,0.35));}
+.balloon.popped{animation:none;pointer-events:none;}
+.balloon-word{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-body);font-weight:700;font-size:1.5rem;letter-spacing:.5px;color:var(--gold-soft);
+  opacity:0;transform:scale(.5);
+  text-shadow:0 0 20px rgba(244,200,105,0.6);
+}
+.balloon-word.show{animation:wordPop .7s var(--ease-spring) forwards;}
+@keyframes wordPop{0%{opacity:0;transform:scale(.3) rotate(-8deg);}60%{opacity:1;transform:scale(1.15) rotate(2deg);}100%{opacity:1;transform:scale(1) rotate(0);}}
+.balloon-hint{margin-top:34px;font-size:.85rem;color:var(--ink);opacity:.7;}
+.next-btn-wrap{margin-top:38px;height:60px;}
+
+/* ============================================================
+   BOUQUET
+   ============================================================ */
+.bouquet-stage{
+  position:relative;
+  width:min(80vw,320px);
+  margin:0 auto;
+  cursor:pointer;
+}
+.bouquet-stage svg{width:100%;height:auto;transform:scale(.85);transition:transform 1.1s var(--ease-spring), filter 1.1s;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.4));}
+.bouquet-stage.given svg{transform:scale(1);filter:drop-shadow(0 20px 50px rgba(255,111,165,0.5));}
+.bouquet-caption{margin-top:30px;opacity:0;transition:opacity .8s ease .3s;}
+.bouquet-stage.given ~ .bouquet-caption{opacity:1;}
+.bouquet-hint{margin-top:20px;font-size:.85rem;opacity:.6;}
+
+/* ============================================================
+   GIFT REVEAL — tap through Happy Birthday -> wrong gift -> real gift
+   ============================================================ */
+.gift-stage{
+  width:min(78vw,300px);
+  margin:22px auto 0;
+  padding:10px;
+  cursor:pointer;
+  transition:transform .3s var(--ease-spring);
+}
+.gift-stage:active{transform:scale(0.97);}
+.gift-stage img{width:100%;border-radius:14px;display:block;box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+.gift-stage.pop img{animation:giftPop .5s var(--ease-spring);}
+@keyframes giftPop{0%{transform:scale(0.85) rotate(-3deg);opacity:.35;}60%{transform:scale(1.06) rotate(2deg);opacity:1;}100%{transform:scale(1) rotate(0deg);}}
+.gift-caption{margin-top:20px;font-size:.95rem;color:var(--rose-soft);font-weight:500;min-height:1.4em;}
+
+/* ============================================================
+   BIG FLIP REVEAL — "Things I love about you" -> "All of you"
+   ============================================================ */
+.big-flip-card{
+  width:min(78vw,300px);
+  aspect-ratio:0.91;
+  margin:0 auto;
+  perspective:1800px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+.big-flip-inner{
+  position:relative;
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .9s var(--ease-spring);
+  border-radius:26px;
+}
+.big-flip-card.flipped .big-flip-inner{transform:rotateY(180deg);}
+.big-flip-card:hover .big-flip-inner{transform:rotateY(6deg);}
+.big-flip-card.flipped:hover .big-flip-inner{transform:rotateY(186deg);}
+.big-flip-face{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:0 20px 55px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.12) inset;
+  background:#fff;
+}
+.big-flip-face img{width:100%;height:100%;object-fit:cover;display:block;}
+.big-flip-back{transform:rotateY(180deg);}
+.flip-hint{margin-top:24px;font-size:.85rem;opacity:.65;}
+
+/* ============================================================
+   FLIP CARDS — "Things I Love About You"
+   ============================================================ */
+.card-scroller{
+  display:flex;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  gap:16px;
+  padding:10px 0 10px;
+  width:100%;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.card-scroller::-webkit-scrollbar{display:none;}
+.flip-card{
+  flex:0 0 82%;
+  height:260px;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  perspective:1200px;
+}
+@media(min-width:520px){
+  .flip-card{flex:0 0 45%;}
+}
+@media(min-width:820px){
+  .flip-card{flex:0 0 30%;}
+}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .7s var(--ease-spring);
+}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-face{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:22px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:22px;
+  gap:14px;
+}
+.flip-front{background:var(--glass);border:1px solid var(--glass-border);}
+.flip-front .icon{font-size:2.2rem;}
+.flip-front .label{font-weight:500;font-size:.95rem;color:var(--white);}
+.flip-front .tap-note{font-size:.68rem;opacity:.55;letter-spacing:1px;text-transform:uppercase;}
+.flip-back{
+  background:linear-gradient(160deg, rgba(255,111,165,0.18), rgba(181,138,255,0.18));
+  border:1px solid var(--glass-border);
+  transform:rotateY(180deg);
+}
+.flip-back p{font-size:.88rem;line-height:1.6;font-weight:300;color:var(--white);}
+.card-dots{display:flex;gap:6px;justify-content:center;margin-top:8px;}
+.card-dots span{width:6px;height:6px;border-radius:50%;background:var(--glass-border);transition:background .3s ease, width .3s ease;}
+.card-dots span.active{background:var(--rose);width:16px;border-radius:3px;}
+
+/* ============================================================
+   WISHES
+   ============================================================ */
+.wish-stack{display:flex;flex-direction:column;gap:18px;}
+.wish-card{padding:24px 26px;text-align:left;display:flex;gap:16px;align-items:flex-start;}
+.wish-card .icon{font-size:1.5rem;flex-shrink:0;}
+.wish-card p{font-size:.96rem;line-height:1.65;font-weight:300;color:var(--ink);}
+
+/* ============================================================
+   FUTURE TOGETHER
+   ============================================================ */
+.dream-list{display:flex;flex-direction:column;gap:16px;text-align:left;}
+.dream-item{display:flex;gap:16px;align-items:center;padding:20px 22px;}
+.dream-item .icon{font-size:1.6rem;flex-shrink:0;width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:rgba(255,255,255,0.06);}
+.dream-item p{font-size:.95rem;font-weight:300;color:var(--white);}
+
+/* ============================================================
+   LOVE LETTER
+   ============================================================ */
+.envelope-wrap{width:min(85vw,340px);margin:0 auto;position:relative;perspective:1600px;}
+.envelope{position:relative;width:100%;aspect-ratio:16/11;cursor:pointer;}
+.env-back{position:absolute;inset:0;background:linear-gradient(160deg,#3a2358,#241238);border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,0.5);}
+.env-flap{
+  position:absolute;top:0;left:0;width:100%;height:55%;
+  background:linear-gradient(160deg,#4d2d73,#2c1747);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform 1s var(--ease-spring);
+  border-radius:10px 10px 0 0;
+  z-index:3;
+}
+.envelope.open .env-flap{transform:rotateX(180deg);}
+.env-letter{
+  position:absolute;left:6%;right:6%;bottom:6%;
+  height:78%;
+  background:linear-gradient(180deg,#fdf6ff,#f7ecff);
+  border-radius:6px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  transform:translateY(6%);
+  transition:transform 1s var(--ease-spring) .15s;
+  z-index:2;
+  display:flex;align-items:center;justify-content:center;
+}
+.envelope.open .env-letter{transform:translateY(-58%);}
+.env-seal{
+  position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);
+  width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--rose-soft), var(--rose) 60%, #a83f6d);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  box-shadow:0 4px 14px rgba(0,0,0,0.4);
+  z-index:4;
+  transition:opacity .4s ease, transform .4s ease;
+}
+.envelope.open .env-seal{opacity:0;transform:translate(-50%,-50%) scale(.3);}
+.env-hint{margin-top:26px;font-size:.85rem;opacity:.65;}
+.letter-reveal{
+  margin-top:34px;
+  padding:30px 26px;
+  text-align:left;
+  min-height:220px;
+  display:none;
+}
+.letter-reveal.show{display:block;}
+.letter-reveal .sign{font-family:var(--font-display);font-size:1.7rem;color:var(--rose-soft);margin-top:16px;display:block;}
+#letterTyped{font-size:.98rem;line-height:1.85;font-weight:300;color:var(--white);white-space:pre-wrap;}
+.type-caret{display:inline-block;width:2px;background:var(--gold);margin-left:2px;animation:caretBlink .8s step-end infinite;}
+@keyframes caretBlink{50%{opacity:0;}}
+
+/* ============================================================
+   CAKE
+   ============================================================ */
+.cake-stage{width:min(80vw,300px);margin:0 auto;position:relative;}
+.cake-stage svg{width:100%;height:auto;}
+.flame{transform-origin:center bottom;animation:flicker 1.6s ease-in-out infinite;}
+.flame.out{animation:none;opacity:0;}
+@keyframes flicker{0%,100%{transform:scale(1) rotate(-2deg);}50%{transform:scale(1.15) rotate(3deg);}}
+.candle-hit{cursor:pointer;}
+.cake-hint{margin-top:26px;font-size:.85rem;opacity:.65;}
+.cake-message{margin-top:24px;opacity:0;transition:opacity .8s ease;padding:20px;}
+.cake-message.show{opacity:1;}
+
+/* ============================================================
+   SURPRISE / SCRATCH CARD
+   ============================================================ */
+.scratch-wrap{width:min(80vw,300px);height:170px;margin:0 auto;position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+.scratch-under{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#241238,#3a1f52);}
+.scratch-under span{font-family:var(--font-display);font-size:2.1rem;color:var(--rose-soft);text-shadow:0 0 20px rgba(255,111,165,0.6);}
+#scratchCanvas{position:absolute;inset:0;touch-action:none;}
+.scratch-hint{margin-top:22px;font-size:.85rem;opacity:.65;}
+.hidden-hearts{position:relative;height:160px;margin-top:10px;}
+.hh{
+  position:absolute;font-size:1.6rem;cursor:pointer;
+  animation:hhFloat 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 8px rgba(255,111,165,0.5));
+}
+@keyframes hhFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.hh-msg{
+  position:absolute;top:-46px;left:50%;transform:translate(-50%,6px);
+  background:var(--glass-strong);border:1px solid var(--glass-border);
+  padding:6px 12px;border-radius:10px;font-size:.72rem;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .3s, transform .3s;
+  backdrop-filter:blur(10px);
+}
+.hh.revealed .hh-msg{opacity:1;transform:translate(-50%,0);}
+
+/* ============================================================
+   HEART SPLIT REVEAL
+   ============================================================ */
+.heart-split-stage{
+  position:relative;
+  width:min(56vw,220px);
+  aspect-ratio:1/0.9;
+  margin:26px auto 0;
+  cursor:pointer;
+  filter:drop-shadow(0 14px 26px rgba(255,59,92,0.45));
+  transition:max-height .6s ease .15s, opacity .5s ease .15s, margin .6s ease .15s;
+  max-height:240px;
+  overflow:visible;
+}
+.heart-split-stage.split{
+  max-height:0;
+  opacity:0;
+  margin-top:0;
+  margin-bottom:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.heart-half{
+  position:absolute;
+  inset:0;
+  transition:transform .8s var(--ease-spring), opacity .6s ease .1s;
+}
+.heart-half svg{width:100%;height:100%;display:block;}
+.heart-half-left{clip-path:polygon(0 0, 50% 0, 50% 100%, 0 100%);animation:heartbeat 1.8s ease-in-out infinite;}
+.heart-half-right{clip-path:polygon(50% 0, 100% 0, 100% 100%, 50% 100%);animation:heartbeat 1.8s ease-in-out infinite;}
+@keyframes heartbeat{0%,100%{transform:scale(1);}15%{transform:scale(1.08);}30%{transform:scale(1);}45%{transform:scale(1.05);}60%{transform:scale(1);}}
+.heart-split-stage.split .heart-half-left{animation:none;transform:translate(-46%,10%) rotate(-30deg);opacity:0;}
+.heart-split-stage.split .heart-half-right{animation:none;transform:translate(46%,10%) rotate(30deg);opacity:0;}
+.heart-hint{margin-top:18px;font-size:.85rem;opacity:.65;transition:opacity .3s ease, max-height .3s ease .2s, margin .3s ease .2s;max-height:40px;}
+.heart-hint.hide{opacity:0;max-height:0;margin-top:0;overflow:hidden;}
+.heart-photo-reveal{
+  max-width:280px;
+  margin:16px auto 0;
+  opacity:0;
+  transform:translateY(16px) scale(.96);
+  transition:opacity .7s var(--ease-soft) .5s, transform .7s var(--ease-spring) .5s;
+  pointer-events:none;
+}
+.heart-photo-reveal.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.heart-photo-frame{padding:10px;margin-top:6px;}
+.heart-photo-frame img{width:100%;border-radius:14px;display:block;box-shadow:0 16px 40px rgba(0,0,0,0.45);}
+.heart-photo-caption{margin-top:14px;font-size:.85rem;opacity:.75;font-style:italic;}
+
+/* ============================================================
+   SONG HEARTS — floating multi-color hearts, tap to play a song
+   ============================================================ */
+.song-heart-stage{
+  position:relative;
+  width:100%;
+  max-width:340px;
+  height:350px;
+  margin:18px auto 0;
+}
+.song-heart{
+  position:absolute;
+  width:74px;
+  height:66px;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  animation:songFloat 4.5s ease-in-out infinite;
+  transition:transform .25s var(--ease-spring);
+  z-index:4;
+}
+.song-heart:active{transform:scale(0.88);}
+.song-heart-color{width:100%;height:100%;filter:drop-shadow(0 8px 14px rgba(0,0,0,0.4));transition:filter .3s ease;}
+.song-heart-color svg{width:100%;height:100%;display:block;}
+@keyframes songFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.song-heart.playing .song-heart-color{filter:drop-shadow(0 8px 14px rgba(0,0,0,0.4)) drop-shadow(0 0 16px rgba(255,255,255,0.85));}
+.song-heart.playing{animation:songFloat 4.5s ease-in-out infinite, songPulse 1s ease-in-out infinite;}
+@keyframes songPulse{0%,100%{transform:scale(1) translateY(0);}50%{transform:scale(1.12) translateY(-6px);}}
+
+/* ============================================================
+   PHOTO STACK — swipeable stacked photo deck
+   ============================================================ */
+.stack-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+.stack-stage{
+  position:relative;
+  width:min(64vw,240px);
+  aspect-ratio:1/1.15;
+  touch-action:pan-y;
+}
+.stack-card{
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 16px 34px rgba(0,0,0,0.45);
+  background:#1a0f2e;
+  transition:transform .45s var(--ease-spring), opacity .4s ease;
+  will-change:transform;
+}
+.stack-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+.stack-card.depth-0{transform:translateY(0) scale(1) rotate(0deg);z-index:3;opacity:1;cursor:grab;}
+.stack-card.depth-0:active{cursor:grabbing;}
+.stack-card.depth-1{transform:translateY(10px) scale(0.94);z-index:2;opacity:0.92;pointer-events:none;}
+.stack-card.depth-2{transform:translateY(18px) scale(0.88);z-index:1;opacity:0.75;pointer-events:none;}
+.stack-card.no-transition{transition:none;}
+.stack-card.fly-left{transform:translate(-160%,-6%) rotate(-26deg) !important;opacity:0 !important;}
+.stack-card.fly-right{transform:translate(160%,-6%) rotate(26deg) !important;opacity:0 !important;}
+.stack-arrow{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:var(--glass-strong);
+  border:1px solid var(--glass-border);
+  color:var(--white);
+  font-size:1.3rem;
+  line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:transform .2s ease, background .2s ease;
+}
+.stack-arrow:hover{background:rgba(255,111,165,0.25);}
+.stack-arrow:active{transform:scale(0.9);}
+.stack-counter{margin-top:16px;font-size:.78rem;letter-spacing:1px;opacity:.6;font-variant-numeric:tabular-nums;}
+
+/* ============================================================
+   SINGING PERFORMANCE — intro + video with glitter
+   ============================================================ */
+#glitter-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.video-frame{
+  position:relative;
+  width:100%;
+  max-width:340px;
+  margin:0 auto;
+  padding:10px;
+  border-radius:22px;
+}
+.video-frame video{
+  width:100%;
+  display:block;
+  border-radius:14px;
+  background:#000;
+  box-shadow:0 16px 40px rgba(0,0,0,0.5);
+}
+.video-unmute-btn{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  padding:14px 26px;
+  border-radius:100px;
+  background:rgba(0,0,0,0.55);
+  color:var(--white);
+  font-size:.9rem;
+  font-weight:600;
+  border:1px solid rgba(255,255,255,0.3);
+  backdrop-filter:blur(6px);
+  z-index:5;
+}
+
+/* ============================================================
+   FINALE
+   ============================================================ */
+#finale{min-height:100vh;padding-bottom:120px;}
+.finale-title{font-size:clamp(2.6rem,10vw,4.4rem);margin-bottom:20px;}
+#fireworks-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.petal{position:absolute;top:-5%;font-size:1.3rem;animation:petalFall linear infinite;opacity:.85;}
+@keyframes petalFall{0%{transform:translateY(0) translateX(0) rotate(0deg);}100%{transform:translateY(110vh) translateX(var(--drift,40px)) rotate(360deg);}}
+.balloon-deco{position:absolute;bottom:-20%;animation:balloonRise linear infinite;opacity:.9;}
+@keyframes balloonRise{0%{transform:translateY(0) translateX(0);}100%{transform:translateY(-130vh) translateX(var(--drift,30px));}}
+.finale-msg{margin-top:26px;padding:26px 24px;}
+.replay-btn{margin-top:38px;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:380px){
+  .section{padding:70px 16px;}
+  .balloon-field{gap:18px;}
+}
+@media(min-width:900px){
+  .section-inner{max-width:720px;}
+}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-heart">🤍</div>
+  <div class="preloader-text">preparing something for you…</div>
+</div>
+
+<div class="ambient-bg" aria-hidden="true"></div>
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- Global SVG defs — always present in the DOM (never inside a hidden .page),
+     so gradients referenced from multiple pages (e.g. heartGrad used by both
+     the heart-reveal and song-hearts pages) always resolve correctly. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="heartGrad" cx="35%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#ff8fa3"/>
+      <stop offset="45%" stop-color="#ff3b5c"/>
+      <stop offset="100%" stop-color="#b3102f"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div class="locket" aria-hidden="true">
+  <svg viewBox="0 0 44 44">
+    <defs>
+      <linearGradient id="lockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f4c869"/>
+        <stop offset="100%" stop-color="#ff6fa5"/>
+      </linearGradient>
+    </defs>
+    <path class="locket-heart-bg" d="M22 38 C 6 27, 4 14, 14 9 C 19 6.5, 22 10, 22 13 C 22 10, 25 6.5, 30 9 C 40 14, 38 27, 22 38 Z"/>
+    <path class="locket-heart-fill" id="lockFill" d="M22 38 C 6 27, 4 14, 14 9 C 19 6.5, 22 10, 22 13 C 22 10, 25 6.5, 30 9 C 40 14, 38 27, 22 38 Z"/>
+  </svg>
+</div>
+
+<main id="story">
+
+<!-- ============ HERO ============ -->
+<section class="section page active" id="hero">
+  <div class="floaters" id="heroFloaters"></div>
+  <div class="section-inner">
+    <div class="hero-silhouette">
+      <svg viewBox="0 0 200 200" fill="none">
+        <defs>
+          <linearGradient id="silGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#b58aff"/>
+            <stop offset="100%" stop-color="#ff6fa5"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="url(#silGrad)" opacity="0.08"/>
+        <!-- two silhouettes facing each other, forming a heart in the negative space -->
+        <path d="M70 150 C 55 150 40 138 40 118 C 40 100 52 90 52 74 C 52 58 62 46 76 46 C 86 46 92 52 94 60 C 96 70 90 78 90 90 L 90 150 Z" fill="url(#silGrad)" opacity="0.9"/>
+        <path d="M130 150 C 145 150 160 138 160 118 C 160 100 148 90 148 74 C 148 58 138 46 124 46 C 114 46 108 52 106 60 C 104 70 110 78 110 90 L 110 150 Z" fill="url(#silGrad)" opacity="0.7"/>
+        <path d="M100 96 C 96 86 84 84 84 96 C 84 105 100 116 100 116 C 100 116 116 105 116 96 C 116 84 104 86 100 96 Z" fill="#fdf6ff" opacity="0.95"/>
+      </svg>
+    </div>
+    <h1 class="display h1">Happy Birthday <span style="color:var(--rose)">❤</span></h1>
+    <div class="hero-name" id="heroName">Priya</div>
+    <p class="hero-subtitle"><span id="typedSubtitle"></span></p>
+    <div class="hero-cta">
+      <button class="btn tap" id="openSurpriseBtn">Open Your Surprise ✨</button>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span class="chev"></span></div>
+</section>
+
+<!-- ============ 1. QUESTION ============ -->
+<section class="section page" id="question">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner glass question-card reveal">
+    <div class="eyebrow">before we begin</div>
+    <h2 class="display h2">Are you excited for<br>what's next?</h2>
+    <div class="yn-row">
+      <button class="btn tap" id="yesBtn">Yes 💗</button>
+      <button class="btn btn-ghost tap btn-no" id="noBtn">No</button>
+    </div>
+    <p style="margin-top:18px;font-size:.75rem;opacity:.5;" id="noHint">Hai himmat? “No” pe click karo 😏</p>
+  </div>
+</section>
+
+<!-- ============ 2. BALLOONS ============ -->
+<section class="section page" id="balloons">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">pop them, one by one</div>
+    <h2 class="section-title">A Little Secret</h2>
+    <div class="balloon-field" id="balloonField">
+      <!-- balloons injected by JS -->
+    </div>
+    <p class="balloon-hint" id="balloonHint">tap a balloon to pop it 🎈</p>
+    <div class="next-btn-wrap" id="balloonNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ 3. BOUQUET ============ -->
+<section class="section page" id="bouquet">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">for you</div>
+    <h2 class="section-title">A Bouquet of Flowers</h2>
+    <div class="bouquet-stage" id="bouquetStage" role="button" tabindex="0" aria-label="Tap to receive your bouquet">
+      <svg viewBox="0 0 260 320" fill="none">
+        <defs>
+          <radialGradient id="roseGradA" cx="35%" cy="28%" r="78%">
+            <stop offset="0%" stop-color="#ffb3ce"/>
+            <stop offset="50%" stop-color="#ff5f96"/>
+            <stop offset="100%" stop-color="#b62654"/>
+          </radialGradient>
+          <radialGradient id="roseGradB" cx="35%" cy="28%" r="78%">
+            <stop offset="0%" stop-color="#ffe3ef"/>
+            <stop offset="50%" stop-color="#ff9cc0"/>
+            <stop offset="100%" stop-color="#d6467e"/>
+          </radialGradient>
+          <radialGradient id="roseGradC" cx="35%" cy="28%" r="78%">
+            <stop offset="0%" stop-color="#ffd9c2"/>
+            <stop offset="50%" stop-color="#ff8aa0"/>
+            <stop offset="100%" stop-color="#a8305c"/>
+          </radialGradient>
+          <linearGradient id="wrapGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fff3da"/>
+            <stop offset="100%" stop-color="#f0c987"/>
+          </linearGradient>
+          <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#5b9a6a"/>
+            <stop offset="100%" stop-color="#2f6440"/>
+          </linearGradient>
+        </defs>
+
+        <!-- wrap paper -->
+        <path d="M50 300 C 40 230 55 200 85 185 L 175 185 C 205 200 220 230 210 300 C 175 280 85 280 50 300 Z" fill="url(#wrapGrad)" opacity="0.95"/>
+        <path d="M85 185 C 95 220 90 260 78 296" stroke="rgba(255,255,255,0.35)" stroke-width="2" fill="none"/>
+        <path d="M175 185 C 165 220 170 260 182 296" stroke="rgba(255,255,255,0.35)" stroke-width="2" fill="none"/>
+
+        <!-- stems -->
+        <path d="M130 195 L120 260" stroke="#3f7a4f" stroke-width="4" stroke-linecap="round"/>
+        <path d="M130 195 L130 265" stroke="#356a44" stroke-width="4" stroke-linecap="round"/>
+        <path d="M130 195 L142 260" stroke="#3f7a4f" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- leaves -->
+        <path d="M92 210 C 70 205 55 215 48 232 C 68 234 86 228 92 210 Z" fill="url(#leafGrad)"/>
+        <path d="M168 210 C 190 205 205 215 212 232 C 192 234 174 228 168 210 Z" fill="url(#leafGrad)"/>
+        <path d="M120 175 C 108 160 108 145 118 132 C 130 148 128 165 120 175 Z" fill="url(#leafGrad)" opacity="0.9"/>
+
+        <g id="roseGroup"></g>
+
+        <!-- ribbon bow -->
+        <g transform="translate(130,193)">
+          <path d="M0,0 C -18,-10 -26,4 -10,10 C -20,14 -18,26 0,18 Z" fill="#e6497a"/>
+          <path d="M0,0 C 18,-10 26,4 10,10 C 20,14 18,26 0,18 Z" fill="#ff6fa5"/>
+          <circle cx="0" cy="8" r="6" fill="#f4c869"/>
+        </g>
+      </svg>
+    </div>
+    <p class="bouquet-hint" id="bouquetHint">Bouquet par click karo 💐</p>
+    <p class="body-text bouquet-caption">Every petal is a reason I adore you. 🌹</p>
+    <div class="next-btn-wrap" id="bouquetNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ GIFT REVEAL ============ -->
+<section class="section page" id="gift-reveal">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">a little surprise</div>
+    <h2 class="section-title">Ready for your<br>birthday gift?</h2>
+    <div class="gift-stage glass" id="giftStage" role="button" tabindex="0" aria-label="Tap to reveal your gift">
+      <img id="giftImage" src="assets/images/gift/happy-birthday.jpeg" alt="Happy Birthday" loading="lazy">
+    </div>
+    <p class="gift-caption" id="giftCaption">birthday gift ke liye click karo🎁</p>
+    <div class="next-btn-wrap" id="giftNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ BIG FLIP REVEAL ============ -->
+<section class="section page" id="love-flip">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">tap the card</div>
+    <div class="big-flip-card" id="bigFlipCard" role="button" tabindex="0" aria-label="Tap to flip the card">
+      <div class="big-flip-inner">
+        <div class="big-flip-face big-flip-front">
+          <img src="assets/images/front-things-i-love.jpeg" alt="Things I love about you" loading="lazy">
+        </div>
+        <div class="big-flip-face big-flip-back">
+          <img src="assets/images/back-all-of-you.jpeg" alt="All of you" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint" id="bigFlipHint">tap to flip</p>
+    <div class="next-btn-wrap" id="loveFlipNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ HEART SPLIT REVEAL ============ -->
+<section class="section page" id="heart-reveal">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">every single time</div>
+    <h2 class="section-title">How I feel every<br>time I see you</h2>
+    <div class="heart-split-stage" id="heartSplitStage" role="button" tabindex="0" aria-label="Tap the heart">
+      <div class="heart-half heart-half-left">
+        <svg viewBox="0 0 100 90" preserveAspectRatio="xMidYMid slice">
+          <path d="M50 82 C 8 54 -2 24 18 10 C 33 -1 48 8 50 22 C 52 8 67 -1 82 10 C 102 24 92 54 50 82 Z" fill="url(#heartGrad)"/>
+          <ellipse cx="32" cy="24" rx="10" ry="6" fill="rgba(255,255,255,0.45)" transform="rotate(-25 32 24)"/>
+        </svg>
+      </div>
+      <div class="heart-half heart-half-right">
+        <svg viewBox="0 0 100 90" preserveAspectRatio="xMidYMid slice">
+          <path d="M50 82 C 8 54 -2 24 18 10 C 33 -1 48 8 50 22 C 52 8 67 -1 82 10 C 102 24 92 54 50 82 Z" fill="url(#heartGrad)"/>
+          <ellipse cx="32" cy="24" rx="10" ry="6" fill="rgba(255,255,255,0.45)" transform="rotate(-25 32 24)"/>
+        </svg>
+      </div>
+    </div>
+    <p class="heart-hint" id="heartHint">tap the heart</p>
+    <div class="heart-photo-reveal" id="heartPhotoReveal">
+      <div class="glass heart-photo-frame">
+        <img src="assets/images/see-you-photo.jpeg" alt="A photo of you" loading="lazy">
+      </div>
+      <p class="heart-photo-caption">This is the photo i love 🤍</p>
+      <audio id="seeYouAudio" preload="none">
+        <source src="assets/audio/see-you-audio.mp4" type="audio/mp4">
+      </audio>
+      <button class="btn btn-ghost tap" id="audioUnmuteBtn" style="display:none;margin-top:16px;">🔊 tap for sound</button>
+    </div>
+    <div class="next-btn-wrap" id="heartRevealNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ SONG HEARTS ============ -->
+<section class="section page" id="song-hearts">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">songs on my mind</div>
+    <h2 class="section-title">Here are some songs<br>that play in my mind<br>when I see you</h2>
+    <p class="section-sub">tap a heart to listen</p>
+    <div class="song-heart-stage" id="songHeartStage"></div>
+    <audio id="moodAudio" preload="none"></audio>
+    <div class="next-btn-wrap" id="songHeartsNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ PHOTO STACK ============ -->
+<section class="section page" id="photo-stack">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">a little pile of us</div>
+    <h2 class="section-title">Swipe through<br>a few more</h2>
+    <p class="section-sub">swipe left or right</p>
+    <div class="stack-wrap">
+      <button class="stack-arrow stack-arrow-left tap" id="stackArrowLeft" aria-label="Previous photo">‹</button>
+      <div class="stack-stage" id="stackStage">
+        <div class="stack-card depth-2"><img alt="" loading="lazy"></div>
+        <div class="stack-card depth-1"><img alt="" loading="lazy"></div>
+        <div class="stack-card depth-0"><img alt="" loading="lazy"></div>
+      </div>
+      <button class="stack-arrow stack-arrow-right tap" id="stackArrowRight" aria-label="Next photo">›</button>
+    </div>
+    <p class="stack-counter" id="stackCounter">1 / 18</p>
+    <div class="next-btn-wrap" id="stackNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ 4. THINGS I LOVE ABOUT YOU ============ -->
+<section class="section page" id="love-things">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">flip a card</div>
+    <h2 class="section-title">Things I Love<br>About You</h2>
+    <p class="section-sub">tap each card to read why</p>
+    <div class="card-scroller" id="cardScroller"></div>
+    <div class="card-dots" id="cardDots"></div>
+    <div class="next-btn-wrap" id="loveThingsNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ 5. BIRTHDAY WISHES ============ -->
+<section class="section page" id="wishes">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">on your special day</div>
+    <h2 class="section-title">Birthday Wishes</h2>
+    <p class="section-sub">from my heart to yours</p>
+    <div class="wish-stack" id="wishStack"></div>
+    <div class="next-btn-wrap" id="wishesNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ 6. FUTURE TOGETHER ============ -->
+<section class="section page" id="future">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">what's ahead</div>
+    <h2 class="section-title">Reasons Why You Should Marry Me 💍❤️</h2>
+    <p class="section-sub">Things I Promise to Always Do</p>
+    <div class="dream-list" id="dreamList"></div>
+    <div class="next-btn-wrap" id="dreamsNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ LOVE LETTER ============ -->
+<section class="section page" id="love-letter">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">open when ready</div>
+    <h2 class="section-title">A Letter For You</h2>
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Tap to open the letter">
+        <div class="env-letter"></div>
+        <div class="env-back"></div>
+        <div class="env-flap"></div>
+        <div class="env-seal">🤍</div>
+      </div>
+    </div>
+    <p class="env-hint" id="envHint">tap the envelope to open it</p>
+    <div class="letter-reveal glass" id="letterReveal">
+      <p id="letterTyped"></p>
+      <span class="sign" id="letterSign" style="display:none;">— yours, Arjan</span>
+    </div>
+    <div class="next-btn-wrap" id="letterNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ CAKE ============ -->
+<section class="section page" id="cake">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">make a wish</div>
+    <h2 class="section-title">Blow the Candles</h2>
+    <div class="cake-stage">
+      <svg viewBox="0 0 240 220" fill="none">
+        <ellipse cx="120" cy="195" rx="95" ry="14" fill="#3a1f52"/>
+        <rect x="45" y="140" width="150" height="55" rx="10" fill="#e6b7c9"/>
+        <rect x="45" y="140" width="150" height="14" fill="#fff5f8" opacity="0.6"/>
+        <rect x="55" y="105" width="130" height="42" rx="10" fill="#f7cfe0"/>
+        <rect x="55" y="105" width="130" height="12" fill="#fff5f8" opacity="0.6"/>
+        <rect x="65" y="75" width="110" height="35" rx="10" fill="#ffe1ee"/>
+        <g id="candles">
+          <g class="candle" data-i="0"><rect x="80" y="55" width="8" height="22" rx="2" fill="#f4c869"/><g class="flame-wrap"><ellipse class="flame" cx="84" cy="48" rx="5" ry="9" fill="#ffb347"/></g><circle class="candle-hit" cx="84" cy="60" r="18" fill="transparent"/></g>
+          <g class="candle" data-i="1"><rect x="110" y="50" width="8" height="27" rx="2" fill="#ff6fa5"/><g class="flame-wrap"><ellipse class="flame" cx="114" cy="43" rx="5" ry="9" fill="#ffb347"/></g><circle class="candle-hit" cx="114" cy="60" r="18" fill="transparent"/></g>
+          <g class="candle" data-i="2"><rect x="140" y="55" width="8" height="22" rx="2" fill="#b58aff"/><g class="flame-wrap"><ellipse class="flame" cx="144" cy="48" rx="5" ry="9" fill="#ffb347"/></g><circle class="candle-hit" cx="144" cy="60" r="18" fill="transparent"/></g>
+        </g>
+      </svg>
+    </div>
+    <p class="cake-hint" id="cakeHint">tap each candle to blow it out</p>
+    <div class="cake-message glass" id="cakeMessage">
+      <p class="body-text">Whatever you wished for — I hope it comes true. And if it was me, I'm already yours. 🕯️</p>
+    </div>
+    <div class="next-btn-wrap" id="cakeNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ SURPRISE ============ -->
+<section class="section page" id="surprise">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner reveal">
+    <div class="eyebrow">one more thing</div>
+    <h2 class="section-title">A Little Surprise</h2>
+    <p class="section-sub">scratch the card below</p>
+    <div class="scratch-wrap glass">
+      <div class="scratch-under"><span>I Love You ❤️</span></div>
+      <canvas id="scratchCanvas"></canvas>
+    </div>
+    <p class="scratch-hint">use your finger (or mouse) to scratch</p>
+    <div class="hidden-hearts" id="hiddenHearts"></div>
+    <p class="section-sub" style="margin-top:6px;margin-bottom:0;">tap the floating hearts for secret messages</p>
+    <div class="next-btn-wrap" id="surpriseNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ SINGING INTRO ============ -->
+<section class="section page" id="sing-intro">
+  <div class="floaters" data-density="light"></div>
+  <div class="section-inner glass question-card reveal">
+    <div class="eyebrow">one last thing</div>
+    <h2 class="display h2">I'm bad at singing 🎤😅</h2>
+    <p class="body-text" style="margin-top:16px;">So with a little help from the minions, I prepared a special performance for you instead.</p>
+    <p class="body-text" style="margin-top:6px;">Want to see it?</p>
+    <div class="yn-row" style="min-height:auto;margin-top:32px;">
+      <button class="btn tap" id="singYesBtn">Yes 🍌</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SINGING VIDEO + GLITTER ============ -->
+<section class="section page" id="sing-video">
+  <canvas id="glitter-canvas" aria-hidden="true"></canvas>
+  <div class="floaters" id="singFloaters" data-density="heavy"></div>
+  <div class="section-inner reveal">
+    <h2 class="display finale-title" style="margin-bottom:6px;">Happy Birthday ❤️</h2>
+    <p class="body-text" style="margin-bottom:22px;">with all my love (and a little minion magic) 💛</p>
+    <div class="video-frame glass">
+      <video id="singingVideo" playsinline controls>
+        <source src="assets/video/performance.mp4" type="video/mp4">
+      </video>
+      <button class="video-unmute-btn tap" id="videoUnmuteBtn" style="display:none;">▶ tap to play</button>
+    </div>
+    <div class="next-btn-wrap" id="singVideoNextWrap"></div>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section class="section page" id="finale">
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="floaters" id="finaleFloaters"></div>
+  <div class="section-inner reveal">
+    <h2 class="display finale-title">Happy Birthday<br>My Love ❤️</h2>
+    <div class="finale-msg glass">
+      <p class="body-text">Thank you for making my life beautiful. I can't wait to create countless more memories with you.</p>
+    </div>
+    <button class="btn replay-btn tap" id="replayBtn">Replay the Story ↺</button>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
